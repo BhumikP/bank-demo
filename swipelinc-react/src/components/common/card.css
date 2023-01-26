@@ -1,0 +1,31 @@
+table {
+  border-collapse: collapse;
+  /* width: 100%; */
+  /* margin: auto; */
+  margin: 20px auto;
+}
+th {
+  font-weight: 900;
+}
+th,
+td {
+  text-align: left;
+  padding: 8px;
+  border: 1px solid black;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.add-icon {
+  font-size: 31px;
+  margin-left: 20px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  padding: 3px;
+  background-color: green;
+  border: 1px solid green;
+  border-radius: 50%;
+}
