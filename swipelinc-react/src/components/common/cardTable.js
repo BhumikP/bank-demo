@@ -9,25 +9,33 @@ import {
   TextField,
 } from "@mui/material";
 import "./card.css";
+import { useFormState } from "../../hooks/useData";
 
 function CardTable({ CardName, visaChecked, handleChange }) {
-  const [cardCustomType, setCardCustomType] = useState();
-  const [belowRate, setBelowRate] = useState();
-  const [aboveRate, setAboveRate] = useState();
-  const [merchantSelect, setMerchantSelect] = useState();
+  const [cardCustomType, setCardCustomType] = useState("");
+  const [belowRate, setBelowRate] = useState("");
+  const [aboveRate, setAboveRate] = useState("");
+  const [merchantSelect, setMerchantSelect] = useState("");
 
   //credit manage
-  const [creditBelowRate, setCreditBelowRate] = useState();
-  const [creditAboveRate, setCreditAboveRate] = useState();
-  const [creditMerchantSelect, setCreditMerchantSelect] = useState();
+  const [creditBelowRate, setCreditBelowRate] = useState("");
+  const [creditAboveRate, setCreditAboveRate] = useState("");
+  const [creditMerchantSelect, setCreditMerchantSelect] = useState("");
 
   const [visaData, setVisaData] = useState([]);
+
+  const { data } = useFormState();
 
   const addDataToTable = (type) => {
     const data = visaData;
     let newData;
     if (type === "debit") {
-      console.log("ge", belowRate);
+      console.log(belowRate);
+
+      if (belowRate === "" || aboveRate === "" || merchantSelect === "") {
+        window.alert("Please fill all the details");
+        return;
+      }
       newData = {
         cardType: "Debit Card",
         upto2000: belowRate,
@@ -35,6 +43,14 @@ function CardTable({ CardName, visaChecked, handleChange }) {
         merchant: merchantSelect,
       };
     } else {
+      if (
+        creditBelowRate === "" ||
+        creditAboveRate === "" ||
+        creditMerchantSelect === ""
+      ) {
+        window.alert("Please fill all the details");
+        return;
+      }
       newData = {
         cardType: "Credit Card",
         upto2000: creditBelowRate,
@@ -76,12 +92,13 @@ function CardTable({ CardName, visaChecked, handleChange }) {
           {" "}
           <FormControlLabel
             control={
-              <Switch
-                checked={cardCustomType === "debit"}
-                name="debit"
-                onChange={handleCardType}
-                inputProps={{ "aria-label": "controlled" }}
-              />
+              <></>
+              // <Switch
+              //   checked={cardCustomType === "debit"}
+              //   name="debit"
+              //   onChange={handleCardType}
+              //   inputProps={{ "aria-label": "controlled" }}
+              // />
             }
             label="Debit Card"
           />
@@ -94,6 +111,7 @@ function CardTable({ CardName, visaChecked, handleChange }) {
             required
             belowRate={belowRate}
             onChange={(e) => setBelowRate(e.target.value)}
+            disabled={data.toggleData.isDebit}
           />
           <TextField
             id="outlined-basic"
@@ -148,12 +166,13 @@ function CardTable({ CardName, visaChecked, handleChange }) {
           {" "}
           <FormControlLabel
             control={
-              <Switch
-                checked={cardCustomType === "credit"}
-                name="credit"
-                onChange={handleCardType}
-                inputProps={{ "aria-label": "controlled" }}
-              />
+              <></>
+              // <Switch
+              //   checked={cardCustomType === "credit"}
+              //   name="credit"
+              //   onChange={handleCardType}
+              //   inputProps={{ "aria-label": "controlled" }}
+              // />
             }
             label="Credit Card"
           />

@@ -4,7 +4,7 @@ import ChannelType from "./pages/ChannelType";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">Bank Demo</header>
+      <header className="App-header">Swipelink Demo</header>
       <ChannelType />
     </div>
   );

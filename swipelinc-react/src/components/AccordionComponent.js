@@ -27,22 +27,22 @@ const accordionSteps = [
     component: (props) => <StepTwo props={props} />,
   },
   {
-    name: "third",
+    name: "isCreditDebit",
     stepName: "3.Provided Services",
     component: (props) => <StepThree props={props} />,
   },
   {
-    name: "fourth",
+    name: "isNetBanking",
     stepName: "4.NetBanking",
     component: (props) => <StepFour props={props} />,
   },
   {
-    name: "fifth",
+    name: "isUpi",
     stepName: "5.UPI",
     component: (props) => <StepFive props={props} />,
   },
   {
-    name: "sixth",
+    name: "isOther",
     stepName: "6.Other Cards",
     component: (props) => <StepSix props={props} />,
   },
@@ -56,6 +56,32 @@ function AccordionComponent() {
     setExpanded(isExpanded ? panel : false);
   };
   console.log(data, currentStep);
+
+  const handleDisable = (name) => {
+    const { toggleData } = data;
+    if (name === "isNetBanking" && !toggleData.isNetBanking) {
+      return name;
+    }
+    if (name === "isUpi" && !toggleData.isUpi) {
+      return name;
+    }
+    if (
+      name === "isCreditDebit" &&
+      !toggleData.isCredit &&
+      !toggleData.isDebit
+    ) {
+      return name;
+    }
+    if (
+      name === "isOther" &&
+      !toggleData.isLoyaltyCard &&
+      !toggleData.isPrepaidCard &&
+      !toggleData.isWallet
+    ) {
+      return name;
+    }
+  };
+
   return (
     <div>
       {accordionSteps.map((dataComponent) => {
@@ -65,7 +91,7 @@ function AccordionComponent() {
             className="accordion__main"
             expanded={expanded === dataComponent.name}
             onChange={handleChange(dataComponent.name)}
-            // disabled={!!!data.sourcingChannel}
+            disabled={handleDisable(dataComponent.name)}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}

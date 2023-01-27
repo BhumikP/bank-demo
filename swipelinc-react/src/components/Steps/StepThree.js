@@ -1,6 +1,7 @@
 import { Divider } from "@mui/material";
 import React from "react";
 import CardTable from "../common/cardTable";
+import "./styles.css";
 
 function StepThree() {
   const [visaChecked, setVisaChecked] = React.useState(true);

@@ -34,6 +34,18 @@ function FirstStep() {
   };
   console.log(data);
 
+  const convertToggle = (name) => {
+    if (name === "isDebit") return "Debit Card";
+    if (name === "isCredit") return "Credit Card";
+    if (name === "isNetBanking") return "Net Banking";
+    if (name === "isUpi") return "UPI";
+    if (name === "isPrepaidCard") return "Prepaid Card";
+    if (name === "isLoyaltyCard") return "Loyalty Card";
+    if (name === "isWallet") return "Wallet";
+
+    return name;
+  };
+
   return (
     <div style={{ display: "inline-grid", gap: "30px" }}>
       <FormControl
@@ -74,7 +86,7 @@ function FirstStep() {
           <MenuItem value={"processor"}>Processor</MenuItem>
         </Select>
       </FormControl>
-      <FormLabel component="legend">Select multiple</FormLabel>
+      <FormLabel component="legend">Select Cards (multiple)</FormLabel>
       <FormGroup row style={{ justifyContent: "center" }}>
         {Object.entries(data?.toggleData).map((d) => (
           <FormControlLabel
@@ -86,7 +98,7 @@ function FirstStep() {
                 name={d[0]}
               />
             }
-            label={d[0]}
+            label={convertToggle(d[0])}
           />
         ))}
       </FormGroup>
