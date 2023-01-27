@@ -1,7 +1,34 @@
-import React from "react";
-import { FormControlLabel, Grid, Switch, TextField } from "@mui/material";
+import React, { useState } from "react";
+import { FormControlLabel, Grid, TextField } from "@mui/material";
 
-function CommonCard({ name, visaChecked, handleChange }) {
+function CommonCard({
+  name,
+  visaChecked,
+  handleChange,
+  allValue,
+  setAllValue,
+}) {
+  const [below, setBelow] = useState("");
+  const [above, setAbove] = useState("");
+  const [brandName, setBrandName] = useState("");
+
+  const handleAddNew = () => {
+    if (brandName === "" || below === "" || above === "") {
+      alert("Please fill data");
+      return;
+    }
+    setAllValue([
+      ...allValue,
+      {
+        id: allValue.length,
+        cardType: name,
+        brandName: brandName,
+        below: below,
+        above: above,
+      },
+    ]);
+  };
+
   return (
     <Grid
       container
@@ -13,11 +40,12 @@ function CommonCard({ name, visaChecked, handleChange }) {
     >
       <FormControlLabel
         control={
-          <Switch
-            checked={visaChecked}
-            onChange={handleChange}
-            inputProps={{ "aria-label": "controlled" }}
-          />
+          <></>
+          // <Switch
+          //   checked={visaChecked}
+          //   onChange={handleChange}
+          //   inputProps={{ "aria-label": "controlled" }}
+          // />
         }
         label={name}
         style={{ width: "200px" }}
@@ -27,27 +55,34 @@ function CommonCard({ name, visaChecked, handleChange }) {
           id="outlined-basic"
           label={`${name} Brand`}
           variant="outlined"
+          name="brandName"
           size="small"
+          onChange={(e) => setBrandName(e.target.value)}
         />
       </Grid>
       <Grid item xs={6} sm={2}>
         <TextField
           id="outlined-basic"
           label="Slab 0 to 2000"
+          name="below"
           variant="outlined"
-          type="number"
           size="small"
+          onChange={(e) => setBelow(e.target.value)}
         />
       </Grid>
       <Grid item xs={6} sm={2}>
         <TextField
           id="outlined-basic"
           label="2000 to Above"
+          name="above"
           variant="outlined"
-          type="number"
           size="small"
+          onChange={(e) => setAbove(e.target.value)}
         />
       </Grid>
+      <div className="add-icon" onClick={handleAddNew}>
+        +
+      </div>
     </Grid>
   );
 }

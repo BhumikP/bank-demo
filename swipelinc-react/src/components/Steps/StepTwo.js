@@ -1,14 +1,20 @@
 import { FormControl, MenuItem, Radio, Select } from "@mui/material";
 import React from "react";
+import { settlementDropdown } from "../../utils";
 import "./styles.css";
 function StepTwo() {
   const cardType = ["Instant", "T+1", "T+2", "Custom"];
-  const [selectedValue, setSelectedValue] = React.useState("Instant");
+  const [selectedValue, setSelectedValue] = React.useState({});
   const [cardCustomType, setCardCustomType] = React.useState();
 
   const handleChange = (event) => {
-    setSelectedValue(event.target.value);
+    const { name, value } = event.target;
+    if (name === "all") {
+    }
+    setSelectedValue({ name: name, value: value });
   };
+  console.log(selectedValue);
+
   return (
     <div>
       <div
@@ -48,10 +54,15 @@ function StepTwo() {
               >
                 {card}
                 <Radio
-                  checked={selectedValue === card}
+                  checked={
+                    (selectedValue.name === "card" &&
+                      selectedValue.value === card) ||
+                    (selectedValue.name === "all" &&
+                      selectedValue.value === card)
+                  }
                   onChange={handleChange}
                   value={card}
-                  name="radio-buttons"
+                  name={"card"}
                   inputProps={{ "aria-label": "A" }}
                 />
               </div>
@@ -67,14 +78,15 @@ function StepTwo() {
               id="customType"
               name="customType"
               value={cardCustomType}
-              disabled={selectedValue !== "Custom"}
-              //   label="Use as"
+              disabled={
+                selectedValue.value !== "Custom" ||
+                selectedValue.name !== "card"
+              } //   label="Use as"
               onChange={(e) => setCardCustomType(e.target.value)}
             >
-              <MenuItem value={"T+3"}>T+3</MenuItem>
-              <MenuItem value={"T+4"}>T+4</MenuItem>
-              <MenuItem value={"T+5"}>T+5</MenuItem>
-              <MenuItem value={"T+6"}>T+6</MenuItem>
+              {settlementDropdown.map((data) => (
+                <MenuItem value={data.value}>{data.name}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </div>
@@ -116,10 +128,15 @@ function StepTwo() {
               >
                 {card}
                 <Radio
-                  checked={selectedValue === card}
+                  checked={
+                    (selectedValue.name === "netBanking" &&
+                      selectedValue.value === card) ||
+                    (selectedValue.name === "all" &&
+                      selectedValue.value === card)
+                  }
                   onChange={handleChange}
                   value={card}
-                  name="radio-buttons"
+                  name="netBanking"
                   inputProps={{ "aria-label": "A" }}
                 />
               </div>
@@ -135,14 +152,16 @@ function StepTwo() {
               id="customType"
               name="customType"
               value={cardCustomType}
-              disabled={selectedValue !== "Custom"}
+              disabled={
+                selectedValue.value !== "Custom" ||
+                selectedValue.name !== "netBanking"
+              }
               //   label="Use as"
               onChange={(e) => setCardCustomType(e.target.value)}
             >
-              <MenuItem value={"T+3"}>T+3</MenuItem>
-              <MenuItem value={"T+4"}>T+4</MenuItem>
-              <MenuItem value={"T+5"}>T+5</MenuItem>
-              <MenuItem value={"T+6"}>T+6</MenuItem>
+              {settlementDropdown.map((data) => (
+                <MenuItem value={data.value}>{data.name}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </div>
@@ -184,10 +203,15 @@ function StepTwo() {
               >
                 {card}
                 <Radio
-                  checked={selectedValue === card}
+                  checked={
+                    (selectedValue.name === "upi" &&
+                      selectedValue.value === card) ||
+                    (selectedValue.name === "all" &&
+                      selectedValue.value === card)
+                  }
                   onChange={handleChange}
                   value={card}
-                  name="radio-buttons"
+                  name="upi"
                   inputProps={{ "aria-label": "A" }}
                 />
               </div>
@@ -203,14 +227,15 @@ function StepTwo() {
               id="customType"
               name="customType"
               value={cardCustomType}
-              disabled={selectedValue !== "Custom"}
+              disabled={
+                selectedValue.value !== "Custom" || selectedValue.name !== "upi"
+              }
               //   label="Use as"
               onChange={(e) => setCardCustomType(e.target.value)}
             >
-              <MenuItem value={"T+3"}>T+3</MenuItem>
-              <MenuItem value={"T+4"}>T+4</MenuItem>
-              <MenuItem value={"T+5"}>T+5</MenuItem>
-              <MenuItem value={"T+6"}>T+6</MenuItem>
+              {settlementDropdown.map((data) => (
+                <MenuItem value={data.value}>{data.name}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </div>
@@ -252,10 +277,12 @@ function StepTwo() {
               >
                 {card}
                 <Radio
-                  checked={selectedValue === card}
+                  checked={
+                    selectedValue.name === "all" && selectedValue.value === card
+                  }
                   onChange={handleChange}
                   value={card}
-                  name="radio-buttons"
+                  name="all"
                   inputProps={{ "aria-label": "A" }}
                 />
               </div>
@@ -271,14 +298,17 @@ function StepTwo() {
               id="customType"
               name="customType"
               value={cardCustomType}
-              disabled={selectedValue !== "Custom"}
+              disabled={
+                selectedValue.value !== "Custom" || selectedValue.name !== "all"
+              }
               //   label="Use as"
-              onChange={(e) => setCardCustomType(e.target.value)}
+              onChange={(e) => {
+                setCardCustomType(e.target.value);
+              }}
             >
-              <MenuItem value={"T+3"}>T+3</MenuItem>
-              <MenuItem value={"T+4"}>T+4</MenuItem>
-              <MenuItem value={"T+5"}>T+5</MenuItem>
-              <MenuItem value={"T+6"}>T+6</MenuItem>
+              {settlementDropdown.map((data) => (
+                <MenuItem value={data.value}>{data.name}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </div>

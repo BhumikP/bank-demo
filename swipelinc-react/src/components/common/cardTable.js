@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import "./card.css";
 import { useFormState } from "../../hooks/useData";
+import { merchantCategories } from "../../utils";
 
 function CardTable({ CardName, visaChecked, handleChange }) {
   const [cardCustomType, setCardCustomType] = useState("");
@@ -107,21 +108,20 @@ function CardTable({ CardName, visaChecked, handleChange }) {
             size="small"
             label="Slab 0 to 2000"
             variant="outlined"
-            type="number"
             required
             belowRate={belowRate}
             onChange={(e) => setBelowRate(e.target.value)}
-            disabled={data.toggleData.isDebit}
+            disabled={!data.toggleData.isDebit}
           />
           <TextField
             id="outlined-basic"
             size="small"
             label="2000 to above"
             variant="outlined"
-            type="number"
             required
             aboveRate={aboveRate}
             onChange={(e) => setAboveRate(e.target.value)}
+            disabled={!data.toggleData.isDebit}
           />
           <FormControl
             variant={"standard"}
@@ -141,19 +141,11 @@ function CardTable({ CardName, visaChecked, handleChange }) {
               //   disabled={selectedValue !== "Custom"}
               //   label="Select Merchant Category"
               onChange={(e) => setMerchantSelect(e.target.value)}
+              disabled={!data.toggleData.isDebit}
             >
-              <MenuItem value={"Agriculture"}>
-                MCCs 0001-1499:Agriculture Services
-              </MenuItem>
-              <MenuItem value={"Agriculture"}>
-                MCCs 0001-1499:Agriculture Services
-              </MenuItem>
-              <MenuItem value={"Agriculture"}>
-                MCCs 0001-1499:Agriculture Services
-              </MenuItem>
-              <MenuItem value={"Agriculture"}>
-                MCCs 0001-1499:Agriculture Services
-              </MenuItem>
+              {merchantCategories.map((merchants) => (
+                <MenuItem value={merchants.value}>{merchants.name}</MenuItem>
+              ))}
             </Select>
           </FormControl>
           <div className="add-icon" onClick={() => addDataToTable("debit")}>
@@ -181,20 +173,20 @@ function CardTable({ CardName, visaChecked, handleChange }) {
             size="small"
             label="Slab 0 to 2000"
             variant="outlined"
-            type="number"
             required
             creditBelowRate={creditBelowRate}
             onChange={(e) => setCreditBelowRate(e.target.value)}
+            disabled={!data.toggleData.isCredit}
           />
           <TextField
             id="outlined-basic"
             size="small"
             label="2000 to above"
             variant="outlined"
-            type="number"
             required
             creditAboveRate={creditAboveRate}
             onChange={(e) => setCreditAboveRate(e.target.value)}
+            disabled={!data.toggleData.isCredit}
           />
           <FormControl
             variant={"standard"}
@@ -214,19 +206,11 @@ function CardTable({ CardName, visaChecked, handleChange }) {
               //   disabled={selectedValue !== "Custom"}
               //   label="Select Merchant Category"
               onChange={(e) => setCreditMerchantSelect(e.target.value)}
+              disabled={!data.toggleData.isCredit}
             >
-              <MenuItem value={"Agriculture"}>
-                MCCs 0001-1499:Agriculture Services
-              </MenuItem>
-              <MenuItem value={"Agriculture"}>
-                MCCs 0001-1499:Agriculture Services
-              </MenuItem>
-              <MenuItem value={"Agriculture"}>
-                MCCs 0001-1499:Agriculture Services
-              </MenuItem>
-              <MenuItem value={"Agriculture"}>
-                MCCs 0001-1499:Agriculture Services
-              </MenuItem>
+              {merchantCategories.map((merchants) => (
+                <MenuItem value={merchants.value}>{merchants.name}</MenuItem>
+              ))}
             </Select>
           </FormControl>
           <div className="add-icon" onClick={addDataToTable}>
@@ -251,8 +235,8 @@ function CardTable({ CardName, visaChecked, handleChange }) {
                 <tr key={index}>
                   <td>VISA</td>
                   <td>{data.cardType}</td>
-                  <td>{data.upto2000}%</td>
-                  <td>{data.above}%</td>
+                  <td>{data.upto2000}</td>
+                  <td>{data.above}</td>
                   <td>{data.merchant}</td>
                 </tr>
               );
