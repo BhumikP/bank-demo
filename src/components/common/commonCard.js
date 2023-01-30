@@ -7,6 +7,7 @@ function CommonCard({
   handleChange,
   allValue,
   setAllValue,
+  isDisabled,
 }) {
   const [below, setBelow] = useState("");
   const [above, setAbove] = useState("");
@@ -58,6 +59,7 @@ function CommonCard({
           name="brandName"
           size="small"
           onChange={(e) => setBrandName(e.target.value)}
+          disabled={isDisabled}
         />
       </Grid>
       <Grid item xs={6} sm={2}>
@@ -68,6 +70,7 @@ function CommonCard({
           variant="outlined"
           size="small"
           onChange={(e) => setBelow(e.target.value)}
+          disabled={isDisabled}
         />
       </Grid>
       <Grid item xs={6} sm={2}>
@@ -78,9 +81,14 @@ function CommonCard({
           variant="outlined"
           size="small"
           onChange={(e) => setAbove(e.target.value)}
+          disabled={isDisabled}
         />
       </Grid>
-      <div className="add-icon" onClick={handleAddNew}>
+      <div
+        className="add-icon"
+        onClick={handleAddNew}
+        style={isDisabled ? { cursor: "not-allowed" } : {}}
+      >
         +
       </div>
     </Grid>

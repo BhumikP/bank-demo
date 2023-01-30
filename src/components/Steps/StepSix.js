@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useFormState } from "../../hooks/useData";
 import CommonCard from "../common/commonCard";
 
 function StepSix() {
+  const { data } = useFormState();
   const [LoyaltyChecked, setLoyaltyChecked] = useState(true);
   const handleLoyaltyChange = (event) => {
     setLoyaltyChecked(event.target.checked);
@@ -32,6 +34,7 @@ function StepSix() {
         handleChange={handleLoyaltyChange}
         allValue={allValues}
         setAllValue={setAllValues}
+        isDisabled={!data.toggleData.isLoyaltyCard}
       />
       <CommonCard
         name="Prepaid Card"
@@ -39,6 +42,7 @@ function StepSix() {
         handleChange={handlePrepaidChange}
         allValue={allValues}
         setAllValue={setAllValues}
+        isDisabled={!data.toggleData.isPrepaidCard}
       />
       <CommonCard
         name="EMI"
@@ -46,6 +50,7 @@ function StepSix() {
         handleChange={handleEmiChange}
         allValue={allValues}
         setAllValue={setAllValues}
+        isDisabled={!data.toggleData.isEmi}
       />
       <CommonCard
         name="Wallet"
@@ -53,6 +58,7 @@ function StepSix() {
         handleChange={handleWalletChange}
         allValue={allValues}
         setAllValue={setAllValues}
+        isDisabled={!data.toggleData.isWallet}
       />
       {allValues.length > 0 && (
         <table className="table">

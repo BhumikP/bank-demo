@@ -104,6 +104,7 @@ function FormProvider({ children }) {
         isPrepaidCard: false,
         isLoyaltyCard: false,
         isWallet: false,
+        isEmi: false,
       },
       basicDetails: {
         bankName: "",

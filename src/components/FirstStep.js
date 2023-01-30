@@ -41,6 +41,7 @@ function FirstStep() {
     if (name === "isPrepaidCard") return "Prepaid Card";
     if (name === "isLoyaltyCard") return "Loyalty Card";
     if (name === "isWallet") return "Wallet";
+    if (name === "isEmi") return "EMI";
 
     return name;
   };
