@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useFormState } from "../../hooks/useData";
 import CommonCard from "../common/commonCard";
 
-function StepSix() {
+function StepEight() {
   const { data } = useFormState();
-  const [LoyaltyChecked, setLoyaltyChecked] = useState(true);
-  const handleLoyaltyChange = (event) => {
-    setLoyaltyChecked(event.target.checked);
+
+  const [EmiChecked, setEmiChecked] = useState(true);
+  const handleEmiChange = (event) => {
+    setEmiChecked(event.target.checked);
   };
 
   const [allValues, setAllValues] = useState([]);
@@ -14,12 +15,12 @@ function StepSix() {
   return (
     <div>
       <CommonCard
-        name="Loyalty Card"
-        visaChecked={LoyaltyChecked}
-        handleChange={handleLoyaltyChange}
+        name="EMI"
+        visaChecked={EmiChecked}
+        handleChange={handleEmiChange}
         allValue={allValues}
         setAllValue={setAllValues}
-        isDisabled={!data.toggleData.isLoyaltyCard}
+        isDisabled={!data.toggleData.isEmi}
       />
 
       {allValues.length > 0 && (
@@ -50,4 +51,4 @@ function StepSix() {
   );
 }
 
-export default StepSix;
+export default StepEight;

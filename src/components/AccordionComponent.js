@@ -14,6 +14,9 @@ import StepTwo from "./Steps/StepTwo";
 import StepFour from "./Steps/StepFour";
 import StepFive from "./Steps/StepFive";
 import StepSix from "./Steps/StepSix";
+import StepTen from "./Steps/StepTen";
+import StepEight from "./Steps/StepEight";
+import StepNine from "./Steps/StepNine";
 import StepSeven from "./Steps/StepSeven";
 
 const accordionSteps = [
@@ -43,14 +46,29 @@ const accordionSteps = [
     component: (props) => <StepFive props={props} />,
   },
   {
-    name: "isOther",
-    stepName: "6.Other Cards",
+    name: "isLoyaltyCard",
+    stepName: "6.Loyalty Cards",
     component: (props) => <StepSix props={props} />,
   },
   {
-    name: "uploadDoc",
-    stepName: "7.Upload Documents",
+    name: "isPrepaidCard",
+    stepName: "7.Prepaid Cards",
     component: (props) => <StepSeven props={props} />,
+  },
+  {
+    name: "isEmi",
+    stepName: "8.EMI Cards",
+    component: (props) => <StepEight props={props} />,
+  },
+  {
+    name: "isWallet",
+    stepName: "9.Wallet",
+    component: (props) => <StepNine props={props} />,
+  },
+  {
+    name: "uploadDoc",
+    stepName: "10.Upload Documents",
+    component: (props) => <StepTen props={props} />,
   },
 ];
 
@@ -80,6 +98,18 @@ function AccordionComponent() {
       !toggleData.isPrepaidCard &&
       !toggleData.isWallet
     ) {
+      return name;
+    }
+    if (name === "isPrepaidCard" && !toggleData.isPrepaidCard) {
+      return name;
+    }
+    if (name === "isLoyaltyCard" && !toggleData.isLoyaltyCard) {
+      return name;
+    }
+    if (name === "isWallet" && !toggleData.isWallet) {
+      return name;
+    }
+    if (name === "isEmi" && !toggleData.isEmi) {
       return name;
     }
     if (name === "uploadDoc" && data.useAsType !== "aggregator") {
