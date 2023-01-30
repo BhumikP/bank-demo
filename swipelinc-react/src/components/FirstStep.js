@@ -35,8 +35,7 @@ function FirstStep() {
   console.log(data);
 
   const convertToggle = (name) => {
-    if (name === "isDebit") return "Debit Card";
-    if (name === "isCredit") return "Credit Card";
+    if (name === "isCard") return "Cards(Debit,Credit)";
     if (name === "isNetBanking") return "Net Banking";
     if (name === "isUpi") return "UPI";
     if (name === "isPrepaidCard") return "Prepaid Card";
@@ -44,6 +43,20 @@ function FirstStep() {
     if (name === "isWallet") return "Wallet";
 
     return name;
+  };
+
+  const sourcingMenu = () => {
+    if (data.useAsType !== "aggregator") {
+      return [
+        { name: "Bank", value: "bank" },
+        { name: "Processor", value: "processor" },
+      ];
+    } else {
+      return [
+        { name: "Aggregator", value: "aggregator" },
+        { name: "Master Merchant", value: "masterMerchant" },
+      ];
+    }
   };
 
   return (
@@ -78,12 +91,12 @@ function FirstStep() {
           name="sourcingChannel"
           value={data.sourcingChannel}
           disabled={!!!data.useAsType}
-          label="Use as"
+          label="Sourcing"
           onChange={handleChange}
         >
-          <MenuItem value={"bank"}>Bank</MenuItem>
-
-          <MenuItem value={"processor"}>Processor</MenuItem>
+          {sourcingMenu()?.map((type) => (
+            <MenuItem value={type.value}>{type.name}</MenuItem>
+          ))}
         </Select>
       </FormControl>
       <FormLabel component="legend">Select Cards (multiple)</FormLabel>

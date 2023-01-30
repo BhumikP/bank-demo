@@ -97,8 +97,8 @@ function FormProvider({ children }) {
       useAsType: "",
       sourcingChannel: "",
       toggleData: {
-        isDebit: false,
-        isCredit: false,
+        // isDebit: false,
+        isCard: false,
         isNetBanking: false,
         isUpi: false,
         isPrepaidCard: false,

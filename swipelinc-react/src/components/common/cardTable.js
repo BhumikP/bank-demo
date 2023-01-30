@@ -13,7 +13,9 @@ import { useFormState } from "../../hooks/useData";
 import { merchantCategories } from "../../utils";
 
 function CardTable({ CardName, visaChecked, handleChange }) {
-  const [cardCustomType, setCardCustomType] = useState("");
+  const [debitToggle, setDebitToggle] = useState("");
+  const [creditToggle, setCreditToggle] = useState("");
+
   const [belowRate, setBelowRate] = useState("");
   const [aboveRate, setAboveRate] = useState("");
   const [merchantSelect, setMerchantSelect] = useState("");
@@ -31,8 +33,6 @@ function CardTable({ CardName, visaChecked, handleChange }) {
     const data = visaData;
     let newData;
     if (type === "debit") {
-      console.log(belowRate);
-
       if (belowRate === "" || aboveRate === "" || merchantSelect === "") {
         window.alert("Please fill all the details");
         return;
@@ -66,9 +66,6 @@ function CardTable({ CardName, visaChecked, handleChange }) {
     // setMerchantSelect();
   };
 
-  const handleCardType = (e) => {
-    setCardCustomType(e.target.name);
-  };
   return (
     <div>
       <FormControlLabel
@@ -90,16 +87,18 @@ function CardTable({ CardName, visaChecked, handleChange }) {
             marginBottom: "20px",
           }}
         >
-          {" "}
           <FormControlLabel
             control={
-              <></>
-              // <Switch
-              //   checked={cardCustomType === "debit"}
-              //   name="debit"
-              //   onChange={handleCardType}
-              //   inputProps={{ "aria-label": "controlled" }}
-              // />
+              <Switch
+                // checked={debitToggle === "debit"}
+                name="debit"
+                onChange={(e) => {
+                  debitToggle === "debit"
+                    ? setDebitToggle("")
+                    : setDebitToggle(e.target.name);
+                }}
+                inputProps={{ "aria-label": "controlled" }}
+              />
             }
             label="Debit Card"
           />
@@ -111,7 +110,7 @@ function CardTable({ CardName, visaChecked, handleChange }) {
             required
             belowRate={belowRate}
             onChange={(e) => setBelowRate(e.target.value)}
-            disabled={!data.toggleData.isDebit}
+            disabled={debitToggle !== "debit"}
           />
           <TextField
             id="outlined-basic"
@@ -121,7 +120,7 @@ function CardTable({ CardName, visaChecked, handleChange }) {
             required
             aboveRate={aboveRate}
             onChange={(e) => setAboveRate(e.target.value)}
-            disabled={!data.toggleData.isDebit}
+            disabled={debitToggle !== "debit"}
           />
           <FormControl
             variant={"standard"}
@@ -141,7 +140,7 @@ function CardTable({ CardName, visaChecked, handleChange }) {
               //   disabled={selectedValue !== "Custom"}
               //   label="Select Merchant Category"
               onChange={(e) => setMerchantSelect(e.target.value)}
-              disabled={!data.toggleData.isDebit}
+              disabled={debitToggle !== "debit"}
             >
               {merchantCategories.map((merchants) => (
                 <MenuItem value={merchants.value}>{merchants.name}</MenuItem>
@@ -158,13 +157,15 @@ function CardTable({ CardName, visaChecked, handleChange }) {
           {" "}
           <FormControlLabel
             control={
-              <></>
-              // <Switch
-              //   checked={cardCustomType === "credit"}
-              //   name="credit"
-              //   onChange={handleCardType}
-              //   inputProps={{ "aria-label": "controlled" }}
-              // />
+              <Switch
+                name="credit"
+                onChange={(e) => {
+                  debitToggle === "debit"
+                    ? setCreditToggle("")
+                    : setCreditToggle(e.target.name);
+                }}
+                inputProps={{ "aria-label": "controlled" }}
+              />
             }
             label="Credit Card"
           />
@@ -176,7 +177,7 @@ function CardTable({ CardName, visaChecked, handleChange }) {
             required
             creditBelowRate={creditBelowRate}
             onChange={(e) => setCreditBelowRate(e.target.value)}
-            disabled={!data.toggleData.isCredit}
+            disabled={creditToggle !== "credit"}
           />
           <TextField
             id="outlined-basic"
@@ -186,7 +187,7 @@ function CardTable({ CardName, visaChecked, handleChange }) {
             required
             creditAboveRate={creditAboveRate}
             onChange={(e) => setCreditAboveRate(e.target.value)}
-            disabled={!data.toggleData.isCredit}
+            disabled={creditToggle !== "credit"}
           />
           <FormControl
             variant={"standard"}
@@ -206,7 +207,7 @@ function CardTable({ CardName, visaChecked, handleChange }) {
               //   disabled={selectedValue !== "Custom"}
               //   label="Select Merchant Category"
               onChange={(e) => setCreditMerchantSelect(e.target.value)}
-              disabled={!data.toggleData.isCredit}
+              disabled={creditToggle !== "credit"}
             >
               {merchantCategories.map((merchants) => (
                 <MenuItem value={merchants.value}>{merchants.name}</MenuItem>

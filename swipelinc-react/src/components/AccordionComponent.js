@@ -14,6 +14,7 @@ import StepTwo from "./Steps/StepTwo";
 import StepFour from "./Steps/StepFour";
 import StepFive from "./Steps/StepFive";
 import StepSix from "./Steps/StepSix";
+import StepSeven from "./Steps/StepSeven";
 
 const accordionSteps = [
   {
@@ -46,6 +47,11 @@ const accordionSteps = [
     stepName: "6.Other Cards",
     component: (props) => <StepSix props={props} />,
   },
+  {
+    name: "uploadDoc",
+    stepName: "7.Upload Documents",
+    component: (props) => <StepSeven props={props} />,
+  },
 ];
 
 function AccordionComponent() {
@@ -65,11 +71,7 @@ function AccordionComponent() {
     if (name === "isUpi" && !toggleData.isUpi) {
       return name;
     }
-    if (
-      name === "isCreditDebit" &&
-      !toggleData.isCredit &&
-      !toggleData.isDebit
-    ) {
+    if (name === "isCreditDebit" && !toggleData.isCard) {
       return name;
     }
     if (
@@ -79,6 +81,9 @@ function AccordionComponent() {
       !toggleData.isWallet
     ) {
       return name;
+    }
+    if (name === "uploadDoc" && data.useAsType !== "aggregator") {
+      return "uploadDoc";
     }
   };
 
