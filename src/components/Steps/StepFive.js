@@ -1,40 +1,54 @@
 import { Grid, TextField } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import { useFormState } from "../../hooks/useData";
+import CommonCard from "../common/commonCard";
 
-function StepFive() {
+function StepFour() {
+  const { data } = useFormState();
+  const [LoyaltyChecked, setLoyaltyChecked] = useState(true);
+  const handleLoyaltyChange = (event) => {
+    setLoyaltyChecked(event.target.checked);
+  };
+
+  const [allValues, setAllValues] = useState([]);
+
   return (
     <div>
-      {" "}
-      <Grid container spacing={3} justifyContent="center" alignItems="center">
-        <Grid item xs={6} sm={2}>
-          <TextField
-            id="outlined-basic"
-            label="Merchant category"
-            variant="outlined"
-            size="small"
-          />
-        </Grid>
-        <Grid item xs={6} sm={2}>
-          <TextField
-            id="outlined-basic"
-            label="Slab 0 to 2000"
-            variant="outlined"
-            size="small"
-            type="number"
-          />
-        </Grid>
-        <Grid item xs={6} sm={2}>
-          <TextField
-            id="outlined-basic"
-            label="2000 to above"
-            variant="outlined"
-            size="small"
-            type="number"
-          />
-        </Grid>
-      </Grid>
+      <CommonCard
+        name="UPI"
+        visaChecked={LoyaltyChecked}
+        handleChange={handleLoyaltyChange}
+        allValue={allValues}
+        setAllValue={setAllValues}
+        isDisabled={!data.toggleData.isUpi}
+      />
+
+      {allValues.length > 0 && (
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Card Type</th>
+              <th>Card Brand</th>
+              <th>Upto 2000</th>
+              <th>Above 2000</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allValues.map((data, index) => {
+              return (
+                <tr key={index}>
+                  <td>{data.cardType}</td>
+                  <td>{data.brandName}</td>
+                  <td>{data.below}</td>
+                  <td>{data.above}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
 
-export default StepFive;
+export default StepFour;

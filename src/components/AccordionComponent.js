@@ -119,7 +119,10 @@ function AccordionComponent() {
 
   return (
     <div>
-      {accordionSteps.map((dataComponent) => {
+      {(data.useAsType !== "aggregator"
+        ? accordionSteps.slice(0, 9)
+        : accordionSteps
+      ).map((dataComponent) => {
         return (
           <Accordion
             key={dataComponent.name}
